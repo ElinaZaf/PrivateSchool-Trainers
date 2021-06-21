@@ -1,0 +1,54 @@
+﻿@model Assignment2_ElinaZafeiri.Models.Trainer
+@using Assignment2_ElinaZafeiri.Helper
+
+@{
+    ViewBag.Title = "Trainer Details";
+}
+
+<h2>Trainer Details</h2>
+
+<div>
+    <h4>Trainer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(trainer => trainer.FirstName)
+        </dt>
+        <dd>
+            @Model.FirstName
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(trainer => trainer.LastName)
+        </dt>
+        <dd>
+            @Model.LastName
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(trainer => trainer.Salary)
+        </dt>
+        <dd>
+            €@Model.Salary
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(trainer => trainer.HireDate)
+        </dt>
+        <dd>
+            @Model.HireDate.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(trainer => trainer.isAvailable)
+        </dt>
+        <dd>
+            @Utilities.BoolToYesOrNo(Model.isAvailable)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TrainerId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

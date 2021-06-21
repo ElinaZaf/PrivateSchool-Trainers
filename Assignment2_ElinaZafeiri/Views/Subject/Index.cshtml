@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Assignment2_ElinaZafeiri.Models.Subject>
+
+@{
+    ViewBag.Title = "Subjects";
+}
+
+<h2>All Subjects</h2>
+
+<table class="table table-hover table-bordered text-center">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

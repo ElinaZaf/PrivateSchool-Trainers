@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Assignment2_ElinaZafeiri.Models.Trainer>
+@using Assignment2_ElinaZafeiri.Helper
+
+@{
+    ViewBag.Title = "Trainers";
+}
+
+<h2>All Trainers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover table-bordered text-center">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.HireDate)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.isAvailable)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Subjects)
+            </th>
+            <th class="text-center">
+                Actions
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var trainer in Model)
+        {
+            <tr>
+                <td>
+                    @trainer.FirstName
+                </td>
+                <td>
+                    @trainer.LastName
+                </td>
+                <td>
+                    €@trainer.Salary
+                </td>
+                <td>
+                    @trainer.HireDate.ToShortDateString()
+                </td>
+                <td>
+                    @Utilities.BoolToYesOrNo(trainer.isAvailable)
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var subject in trainer.Subjects)
+                        {
+                            <li>@subject.Title</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = trainer.TrainerId }) |
+                    @Html.ActionLink("Details", "Details", new { id = trainer.TrainerId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = trainer.TrainerId })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
