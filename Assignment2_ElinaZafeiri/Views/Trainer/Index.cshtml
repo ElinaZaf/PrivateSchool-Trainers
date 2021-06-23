@@ -1,5 +1,9 @@
-﻿@model IEnumerable<Assignment2_ElinaZafeiri.Models.Trainer>
+﻿@using PagedList;
+@using PagedList.Mvc;
 @using Assignment2_ElinaZafeiri.Helper
+
+@model IPagedList<Assignment2_ElinaZafeiri.Models.Trainer>
+
 
 @{
     ViewBag.Title = "Trainers";
@@ -7,70 +11,118 @@
 
 <h2>All Trainers</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table table-hover table-bordered text-center">
-    <thead>
-        <tr>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Salary)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.HireDate)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.isAvailable)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Subjects)
-            </th>
-            <th class="text-center">
-                Actions
-            </th>
-        </tr>
-    </thead>
 
-    <tbody>
-        @foreach (var trainer in Model)
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <p style="padding-top:50px">
+        @using (Html.BeginForm("Index", "Trainer", FormMethod.Get, new { @class = "form-group" }))
         {
-            <tr>
-                <td>
-                    @trainer.FirstName
-                </td>
-                <td>
-                    @trainer.LastName
-                </td>
-                <td>
-                    €@trainer.Salary
-                </td>
-                <td>
-                    @trainer.HireDate.ToShortDateString()
-                </td>
-                <td>
-                    @Utilities.BoolToYesOrNo(trainer.isAvailable)
-                </td>
-                <td>
-                    <ul>
-                        @foreach (var subject in trainer.Subjects)
-                        {
-                            <li>@subject.Title</li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = trainer.TrainerId }) |
-                    @Html.ActionLink("Details", "Details", new { id = trainer.TrainerId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = trainer.TrainerId })
-                </td>
-            </tr>
+            <div style="padding-bottom: 30px">
+                <b>Search By:</b>
+                <div style="padding-bottom:10px">
+                    @Html.RadioButton("searchBy", "FirstName", true) First Name
+                    @Html.RadioButton("searchBy", "LastName") Last Name
+                    @Html.RadioButton("searchBy", "MinSalary") Minimum Salary
+                    @Html.RadioButton("searchBy", "MaxSalary") Maximum Salary
+                    @Html.RadioButton("searchBy", "HireDateYear") Hire Year
+                </div>
+                @Html.TextBox("search", null, new { @class = "form-control", type = "search" })
+                <div style="padding-top:5px">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <input id="ResetButton" type="button" value="Clear Form" class="btn btn-success" />
+                </div>
+            </div>
         }
-    </tbody>
 
-</table>
+    </p>
+
+    <table class="table table-hover table-bordered text-center">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    @Html.ActionLink("First Name", "Index", "Trainer", new { sortOrder = ViewBag.FNSP, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, null)
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Last Name", "Index", "Trainer", new { sortOrder = ViewBag.LNSP, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, null)
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Salary", "Index", "Trainer", new { sortOrder = ViewBag.SSP, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, null)
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Hire Date", "Index", "Trainer", new { sortOrder = ViewBag.HDSP, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, null)
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Available for Work", "Index", "Trainer", new { sortOrder = ViewBag.IASP, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }, null)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(trainer => trainer.First().Subjects)
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="7"><b>No rows match search criteria</b></td>
+                </tr>
+            }
+            else
+            {
+                foreach (var trainer in Model)
+                {
+                    <tr>
+                        <td>
+                            @trainer.FirstName
+                        </td>
+                        <td>
+                            @trainer.LastName
+                        </td>
+                        <td>
+                            €@trainer.Salary
+                        </td>
+                        <td>
+                            @trainer.HireDate.ToShortDateString()
+                        </td>
+                        <td>
+                            @Utilities.BoolToYesOrNo(trainer.isAvailable)
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach (var subject in trainer.Subjects)
+                                {
+                                    <li>@subject.Title</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = trainer.TrainerId }) |
+                            @Html.ActionLink("Details", "Details", new { id = trainer.TrainerId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = trainer.TrainerId })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = Request.QueryString["sortOrder"], searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }),
+                             new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+    </div>
+
+
+
+@section MyCustomJavascript{
+    <script>
+        $("#ResetButton").click(function (e) {
+            $("#search").val("");
+        });
+    </script>
+}
+

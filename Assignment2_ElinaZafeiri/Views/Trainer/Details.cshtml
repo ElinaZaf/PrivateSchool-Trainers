@@ -45,7 +45,17 @@
         <dd>
             @Utilities.BoolToYesOrNo(Model.isAvailable)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(trainer => trainer.Subjects)
+        </dt>
+        <dd>
+            <ul class="list-unstyled">
+                @foreach (var subject in Model.Subjects)
+                {
+                    <li>@subject.Title</li>
+                }
+            </ul>
+        </dd>
     </dl>
 </div>
 <p>
