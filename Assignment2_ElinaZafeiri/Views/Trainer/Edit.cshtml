@@ -10,68 +10,68 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Trainer</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(viewmodel => viewmodel.Trainer.TrainerId)
 
-    <div class="form-group">
-        @Html.LabelFor(viewmodel => viewmodel.Trainer.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(viewmodel => viewmodel.Trainer.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.FirstName, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Trainer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(viewmodel => viewmodel.Trainer.TrainerId)
+
+        <div class="form-group">
+            @Html.LabelFor(viewmodel => viewmodel.Trainer.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(viewmodel => viewmodel.Trainer.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.FirstName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(viewmodel => viewmodel.Trainer.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(viewmodel => viewmodel.Trainer.LastName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.LastName, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(viewmodel => viewmodel.Trainer.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(viewmodel => viewmodel.Trainer.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.LastName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(viewmodel => viewmodel.Trainer.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(viewmodel => viewmodel.Trainer.Salary, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.Salary, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(viewmodel => viewmodel.Trainer.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(viewmodel => viewmodel.Trainer.Salary, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.Salary, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(viewmodel => viewmodel.Trainer.HireDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(viewmodel => viewmodel.Trainer.HireDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.HireDate, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(viewmodel => viewmodel.Trainer.HireDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(viewmodel => viewmodel.Trainer.HireDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.HireDate, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(viewmodel => viewmodel.Trainer.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(viewmodel => viewmodel.Trainer.isAvailable)
-                @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.isAvailable, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(viewmodel => viewmodel.Trainer.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(viewmodel => viewmodel.Trainer.isAvailable)
+                    @Html.ValidationMessageFor(viewmodel => viewmodel.Trainer.isAvailable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("SelectedSubjectIds", "Subjects", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.ListBox("SelectedSubjectIds", null, htmlAttributes: new { @class = "form=control", size = "7" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.Label("SelectedSubjectIds", "Subjects", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-5">
-            @Html.ListBox("SelectedSubjectIds", null, htmlAttributes: new { @class = "form=control", size = "7" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -80,4 +80,31 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/globalize/globalize.js"></script>
+    <script src="~/Scripts/globalize/cultures/globalize.culture.@(System.Threading.Thread.CurrentThread.CurrentCulture.Name).js"></script>
+    <script>
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) ||
+            !isNaN(Globalize.parseFloat(value));
+    }
+    $(document).ready(function () {
+        Globalize.culture('@(System.Threading.Thread.CurrentThread.CurrentCulture.Name)');
+    });
+    </script>
+    <script>
+    jQuery.extend(jQuery.validator.methods, {
+        range: function (value, element, param) {
+            //Use the Globalization plugin to parse the value
+            var val = Globalize.parseFloat(value);
+            return this.optional(element) || (
+                val >= param[0] && val <= param[1]);
+        }
+    });
+    $.validator.methods.date = function (value, element) {
+        return this.optional(element) ||
+            Globalize.parseDate(value) ||
+            Globalize.parseDate(value, "yyyy-MM-dd");
+    }
+    </script>
 }
